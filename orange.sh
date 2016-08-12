@@ -12,11 +12,30 @@ echo "Orange is a tool designed by 'Guard IT Security Innovations, LLC' to assis
 #	fi
 echo "Please Input your Target Host/IP below, press 'Enter' and Orange will peel it"
 read host
-trace=`traceroute $host  `
-echo "The target host $host is $trace hops away."
-who=`whois $host`
-echo $who
+
+byobu new-session "
+    byobu new-window -n 'Welcome' '
+        cat art; cat welcome; bash';
+    byobu new-window -n 'Tracer' '
+        traceroute $host; bash';
+    byobu new-window -n 'HostInfo' '
+        whois $host; bash';
+    byobu new-window -n 'Geo' '
+        geoiplookup -f /usr/share/GeoIP/GeoLiteCity.dat $host; bash';
+    byobu new-window -n 'PortScan' '
+        nmap -sS $host; bash';
+    byobu new-window -n 'Running' '
+        top';
+"
+
+
+#trace=`traceroute $host  `
+#echo "The target host $host is $trace hops away."
+#who=`whois $host`
+#echo $who
 
 #echo "Would you like to execute a port scan of target? (yes/no)"
 #read nmap
-#if $scan = "yes"
+#if [[$nmap = "yes"]];
+#then nmap -sS
+#fi
