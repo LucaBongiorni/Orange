@@ -23,7 +23,7 @@ byobu new-session "
     byobu new-window -n 'Geo' '
         geoiplookup -f /usr/share/GeoIP/GeoLiteCity.dat $host; bash';
     byobu new-window -n 'PortScan' '
-        nmap -sS $host; bash';
+        nmap -sS -sU -p 20,21,22,23,25,43,53,80,443,9050 $host; bash';
     byobu new-window -n 'Running' '
         top';
 "
